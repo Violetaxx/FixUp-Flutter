@@ -24,13 +24,13 @@ class FixUpButton extends StatelessWidget {
           onPressed: onPressed ?? () {},
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(borderRadius: borderRadius),
-            side: const BorderSide(color: Color(0xFF5B4BFF)),
+            side: const BorderSide(color: Color(0xFFCB9E50)),
           ),
           child: Text(
             text,
             style: const TextStyle(
               fontWeight: FontWeight.w700,
-              color: Color(0xFF5B4BFF),
+              color: Color(0xFFCB9E50),
             ),
           ),
         ),
@@ -43,7 +43,7 @@ class FixUpButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed ?? () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF5B4BFF),
+          backgroundColor: const Color(0xFFCB9E50),
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
           elevation: 0,

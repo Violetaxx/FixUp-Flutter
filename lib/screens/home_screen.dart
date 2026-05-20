@@ -113,7 +113,7 @@ class _FeedHeaderActions extends StatelessWidget {
         ),
         FilledButton(
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFF5B4BFF),
+            backgroundColor: const Color(0xFFCB9E50),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18),

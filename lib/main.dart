@@ -6,6 +6,7 @@ import 'screens/home_screen.dart';
 import 'screens/services_screen.dart';
 import 'screens/service_detail_screen.dart';
 import 'screens/profile_screen.dart';
+import 'data/mock_data.dart';
 
 void main() {
   runApp(const FixUpApp());
@@ -21,7 +22,7 @@ class FixUpApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF5B4BFF),
+          seedColor: const Color(0xFFCB9E50),
         ),
         useMaterial3: true,
       ),
@@ -45,7 +46,7 @@ class _PreviewScreensState extends State<PreviewScreens> {
     const RegisterScreen(),
     const HomeScreen(),
     const ServicesScreen(),
-    const ServiceDetailScreen(),
+    ServiceDetailScreen(service: mockServices.first),
     const ProfileScreen(),
   ];
 
@@ -82,7 +83,7 @@ class _PreviewScreensState extends State<PreviewScreens> {
           labels.length,
           (index) => NavigationDestination(
             icon: Icon(icons[index]),
-            selectedIcon: Icon(icons[index], color: const Color(0xFF5B4BFF)),
+            selectedIcon: Icon(icons[index], color: const Color(0xFFCB9E50)),
             label: labels[index],
           ),
         ),
