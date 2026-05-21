@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/mock_data.dart';
+import 'checkout_screen.dart';
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 
@@ -97,6 +98,37 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     super.dispose();
   }
 
+  void _publishReview() {
+    if (_reviewController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor escribe un comentario')),
+      );
+      return;
+    }
+
+    final newReview = MockReview(
+      id: 'r_${DateTime.now().millisecondsSinceEpoch}',
+      authorName: 'Mi Cuenta',
+      authorImageUrl: 'https://picsum.photos/id/1009/100/100',
+      serviceTitle: widget.service.title,
+      rating: _reviewRating,
+      comment: _reviewController.text,
+      likeCount: 0,
+      isLiked: false,
+    );
+
+    setState(() {
+      _reviews.insert(0, newReview);
+      _reviewController.clear();
+      _reviewRating = 5;
+      _isReviewExpanded = false;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('¡Reseña publicada exitosamente!')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final s = widget.service;
@@ -190,6 +222,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                     onToggle: () =>
                         setState(() => _isReviewExpanded = !_isReviewExpanded),
                     onRatingChanged: (r) => setState(() => _reviewRating = r),
+                    onPublish: _publishReview,
                   ),
 
                   const SizedBox(height: 24),
@@ -200,7 +233,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   const SizedBox(height: 24),
 
                   // Action buttons
-                  const _ActionButtons(),
+                  _ActionButtons(service: widget.service),
                 ],
               ),
             ),
@@ -330,6 +363,7 @@ class _ReviewInputCard extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback onToggle;
   final ValueChanged<int> onRatingChanged;
+  final VoidCallback onPublish;
 
   const _ReviewInputCard({
     required this.isExpanded,
@@ -337,6 +371,7 @@ class _ReviewInputCard extends StatelessWidget {
     required this.controller,
     required this.onToggle,
     required this.onRatingChanged,
+    required this.onPublish,
   });
 
   @override
@@ -417,7 +452,7 @@ class _ReviewInputCard extends StatelessWidget {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: onPublish,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _fawn,
                         shape: RoundedRectangleBorder(
@@ -577,7 +612,17 @@ class _ReviewCardState extends State<_ReviewCard> {
 // ─── Action buttons ───────────────────────────────────────────────────────────
 
 class _ActionButtons extends StatelessWidget {
-  const _ActionButtons();
+  final MockService service;
+
+  const _ActionButtons({required this.service});
+
+  void _goToCheckout(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => CheckoutScreen(service: service),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -587,7 +632,7 @@ class _ActionButtons extends StatelessWidget {
           width: double.infinity,
           height: 54,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () => _goToCheckout(context),
             style: ElevatedButton.styleFrom(
               backgroundColor: _fawn,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

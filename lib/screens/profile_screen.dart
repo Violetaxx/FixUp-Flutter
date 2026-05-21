@@ -1,4 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewModel {
   final String id;
@@ -35,6 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _profileImageUrl = '';
   String _name = 'Juan Pérez';
   String _role = 'Cliente estrella';
+
+  final ImagePicker _picker = ImagePicker();
 
   final List<ReviewModel> _reviews = [
     ReviewModel(
@@ -124,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     const SizedBox(height: 20),
                     GestureDetector(
-                      onTap: _isImageUploading ? null : () {},
+                      onTap: _isImageUploading ? null : () => _onChangePhotoTapped(context),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
@@ -134,9 +142,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 130,
                               height: 130,
                               color: Colors.white,
-                              child: _profileImageUrl.isEmpty
+                                child: _profileImageUrl.isEmpty
                                   ? const Icon(Icons.person, size: 64, color: Colors.black26)
-                                  : Image.network(_profileImageUrl, fit: BoxFit.cover),
+                                  : _profileImageUrl.startsWith('http')
+                                    ? Image.network(_profileImageUrl, fit: BoxFit.cover)
+                                    : Image.file(File(_profileImageUrl), fit: BoxFit.cover),
                             ),
                           ),
                           if (_isImageUploading)
@@ -227,6 +237,80 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedProfileImage();
+  }
+
+  Future<void> _loadSavedProfileImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final path = prefs.getString('profile_image_path') ?? '';
+    if (path.isNotEmpty) {
+      setState(() {
+        _profileImageUrl = path;
+      });
+    }
+  }
+
+  Future<void> _onChangePhotoTapped(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Elegir de la galería'),
+              onTap: () {
+                Navigator.of(context).pop();
+                _pickImage(ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Tomar foto'),
+              onTap: () {
+                Navigator.of(context).pop();
+                _pickImage(ImageSource.camera);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.close),
+              title: const Text('Cancelar'),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      setState(() => _isImageUploading = true);
+      final XFile? picked = await _picker.pickImage(source: source, imageQuality: 85);
+      if (picked == null) return;
+
+      final appDir = await getApplicationDocumentsDirectory();
+      final fileName = 'profile${p.extension(picked.path)}';
+      final savedPath = p.join(appDir.path, fileName);
+
+      final savedFile = await File(picked.path).copy(savedPath);
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('profile_image_path', savedFile.path);
+
+      setState(() {
+        _profileImageUrl = savedFile.path;
+      });
+    } catch (e) {
+      // ignore errors for now
+    } finally {
+      setState(() => _isImageUploading = false);
+    }
   }
 
   void _showEditProfileDialog(BuildContext context) {
