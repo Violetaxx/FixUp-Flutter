@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../data/mock_data.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
     final featured = mockServices.first;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1C1A26),
+      backgroundColor: const Color(0xFFF8F8FC),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
@@ -70,23 +70,24 @@ class _FeedSearchBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF292537),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: const Color(0xFFE6E2D8)),
       ),
-      child: Row(
-        children: const [
-          Icon(Icons.search, color: Color(0xFFB7B2D3)),
+      child: const Row(
+        children: [
+          Icon(Icons.search, color: Colors.black45),
           SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Search services...',
+              'Buscar servicios...',
               style: TextStyle(
-                color: Color(0xFFB7B2D3),
+                color: Colors.black45,
                 fontSize: 16,
               ),
             ),
           ),
-          Icon(Icons.mic_none, color: Color(0xFFB7B2D3)),
+          Icon(Icons.mic_none, color: Colors.black45),
         ],
       ),
     );
@@ -105,7 +106,7 @@ class _FeedHeaderActions extends StatelessWidget {
           child: Text(
             'Recomendados',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black87,
               fontSize: 28,
               fontWeight: FontWeight.w900,
             ),
@@ -120,14 +121,13 @@ class _FeedHeaderActions extends StatelessWidget {
             ),
           ),
           onPressed: () {},
-          child: const Text('Asistente'),
+          child: const Text('Asistente', style: TextStyle(color: Colors.white)),
         ),
         const SizedBox(width: 8),
-        // ✅ CAMBIO: Botón "Siguiendo" en color amarillo arena
         OutlinedButton(
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Color(0xFFD4B483)),
-            foregroundColor: const Color(0xFFD4B483),
+            side: const BorderSide(color: Color(0xFFCB9E50)),
+            foregroundColor: const Color(0xFFCB9E50),
             backgroundColor: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             shape: RoundedRectangleBorder(
@@ -156,15 +156,14 @@ class _FeedFeaturedCard extends StatelessWidget {
         height: 200,
         width: double.infinity,
         fit: BoxFit.cover,
-        // ✅ CAMBIO: errorBuilder para imágenes que no cargan
         errorBuilder: (context, error, stackTrace) => Container(
           height: 200,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: const Color(0xFF3A3650),
+            color: const Color(0xFFEFEBE3),
             borderRadius: BorderRadius.circular(28),
           ),
-          child: const Icon(Icons.broken_image, color: Colors.white38, size: 48),
+          child: const Icon(Icons.broken_image, color: Colors.black26, size: 48),
         ),
       ),
     );
@@ -183,7 +182,7 @@ class _FeedSectionHeader extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.black87,
             fontSize: 20,
             fontWeight: FontWeight.w900,
           ),
@@ -192,8 +191,8 @@ class _FeedSectionHeader extends StatelessWidget {
         TextButton(
           onPressed: () {},
           child: const Text(
-            'See All',
-            style: TextStyle(color: Color(0xFFB7B2D3)),
+            'Ver todo',
+            style: TextStyle(color: Color(0xFFCB9E50)),
           ),
         ),
       ],
@@ -211,8 +210,9 @@ class _FeedCategoryCard extends StatelessWidget {
     return Container(
       width: 112,
       decoration: BoxDecoration(
-        color: const Color(0xFF292537),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: const Color(0xFFE6E2D8)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,12 +224,11 @@ class _FeedCategoryCard extends StatelessWidget {
               height: 76,
               width: 112,
               fit: BoxFit.cover,
-              // ✅ CAMBIO: errorBuilder para imágenes que no cargan
               errorBuilder: (context, error, stackTrace) => Container(
                 height: 76,
                 width: 112,
-                color: const Color(0xFF3A3650),
-                child: const Icon(Icons.broken_image, color: Colors.white38),
+                color: const Color(0xFFEFEBE3),
+                child: const Icon(Icons.broken_image, color: Colors.black26),
               ),
             ),
           ),
@@ -239,7 +238,7 @@ class _FeedCategoryCard extends StatelessWidget {
               child: Text(
                 category.title,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -260,8 +259,9 @@ class _FeedPublicationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF292537),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: const Color(0xFFE6E2D8)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,12 +273,11 @@ class _FeedPublicationCard extends StatelessWidget {
               height: 132,
               width: double.infinity,
               fit: BoxFit.cover,
-              // ✅ CAMBIO: errorBuilder para imágenes que no cargan
               errorBuilder: (context, error, stackTrace) => Container(
                 height: 132,
                 width: double.infinity,
-                color: const Color(0xFF3A3650),
-                child: const Icon(Icons.broken_image, color: Colors.white38),
+                color: const Color(0xFFEFEBE3),
+                child: const Icon(Icons.broken_image, color: Colors.black26),
               ),
             ),
           ),
@@ -292,7 +291,7 @@ class _FeedPublicationCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black87,
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
                   ),
@@ -301,7 +300,7 @@ class _FeedPublicationCard extends StatelessWidget {
                 Text(
                   'Desde ${service.price}',
                   style: const TextStyle(
-                    color: Color(0xFFBDB7FF),
+                    color: Color(0xFFCB9E50),
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),

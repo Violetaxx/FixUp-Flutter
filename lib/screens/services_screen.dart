@@ -3,11 +3,11 @@ import '../data/mock_data.dart';
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 
-const _bg = Color(0xFF111111);
-const _card = Color(0xFF252525);
+const _bg = Color(0xFFF8F8FC);
+const _card = Color(0xFFFFFFFF);
 const _fawn = Color(0xFFCB9E50);
 const _grey = Color(0xFF8E8E93);
-const _border = Color(0xFF333333);
+const _border = Color(0xFFE6E2D8);
 
 // ─── Mock specialists ─────────────────────────────────────────────────────────
 
@@ -94,12 +94,12 @@ class _ServicesScreenState extends State<ServicesScreen> {
         backgroundColor: _bg,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.maybePop(context),
         ),
         title: const Text(
           'Asistente FixUp',
-          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.black87, fontSize: 20, fontWeight: FontWeight.w600),
         ),
       ),
       body: Padding(
@@ -113,7 +113,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
             const Text(
               '¿Qué necesitas?',
               style: TextStyle(
-                  color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                  color: Colors.black87, fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 14),
 
@@ -139,13 +139,13 @@ class _ServicesScreenState extends State<ServicesScreen> {
                         child: Row(
                           children: [
                             Icon(_categories[i].$2,
-                                color: selected ? Colors.white : _grey,
+                                color: selected ? Colors.white : Colors.black54,
                                 size: 18),
                             const SizedBox(width: 6),
                             Text(
                               _categories[i].$1,
                               style: TextStyle(
-                                color: selected ? Colors.white : Colors.white,
+                                color: selected ? Colors.white : Colors.black87,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                               ),
@@ -165,7 +165,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
             const Text(
               'Urgencia',
               style: TextStyle(
-                  color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                  color: Colors.black87, fontSize: 17, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
 
@@ -190,7 +190,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                       child: Text(
                         label,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: selected ? Colors.white : Colors.black87,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -207,7 +207,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
             Expanded(
               child: ListView.separated(
                 itemCount: _filtered.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
+                separatorBuilder: (_, _) => const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final sp = _filtered[index];
                   return _SpecialistCard(specialist: sp);
@@ -232,14 +232,15 @@ class _SpecialistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isImmediate = specialist.availability == 'Inmediato';
     final badgeColor = isImmediate
-        ? const Color(0xFF8B1A1A)
-        : const Color(0xFF4A4580);
+        ? const Color(0xFFD32F2F)
+        : const Color(0xFF5C6BC0);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: _card,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _border),
       ),
       child: Row(
         children: [
@@ -255,7 +256,8 @@ class _SpecialistCard extends StatelessWidget {
                 : Container(
                     width: 52,
                     height: 52,
-                    color: const Color(0xFF3A3A3C),
+                    color: const Color(0xFFE5E0D5),
+                    child: const Icon(Icons.person, color: Colors.black45, size: 28),
                   ),
           ),
           const SizedBox(width: 14),
@@ -268,7 +270,7 @@ class _SpecialistCard extends StatelessWidget {
                 Text(
                   specialist.name,
                   style: const TextStyle(
-                      color: Colors.white,
+                      color: Colors.black87,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),

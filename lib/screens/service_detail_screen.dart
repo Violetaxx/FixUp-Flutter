@@ -4,11 +4,11 @@ import 'checkout_screen.dart';
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 
-const _bg = Color(0xFF111111);
-const _card = Color(0xFF252525);
+const _bg = Color(0xFFF8F8FC);
+const _card = Color(0xFFFFFFFF);
 const _fawn = Color(0xFFCB9E50);
 const _grey = Color(0xFF8E8E93);
-const _border = Color(0xFF333333);
+const _border = Color(0xFFE6E2D8);
 
 // ─── Mock review model ────────────────────────────────────────────────────────
 
@@ -138,12 +138,12 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
         backgroundColor: _bg,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.maybePop(context),
         ),
         title: const Text(
           'Detalle de Publicación',
-          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.black87, fontSize: 20, fontWeight: FontWeight.w600),
         ),
       ),
       body: SingleChildScrollView(
@@ -168,10 +168,10 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.4),
+                        color: Colors.white.withValues(alpha: 0.85),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                      child: const Icon(Icons.arrow_back, color: Colors.black87, size: 20),
                     ),
                   ),
                 ),
@@ -186,7 +186,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   // Title & price
                   Text(s.title,
                       style: const TextStyle(
-                          fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white)),
+                          fontSize: 26, fontWeight: FontWeight.w800, color: Colors.black87)),
                   const SizedBox(height: 4),
                   Text('Desde ${s.price}',
                       style: const TextStyle(
@@ -194,7 +194,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   const SizedBox(height: 12),
                   const Text('Descripción',
                       style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                          fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
                   const SizedBox(height: 4),
                   Text(s.description,
                       style: const TextStyle(fontSize: 15, color: _grey, height: 1.5)),
@@ -278,7 +278,7 @@ class _FixerCard extends StatelessWidget {
               children: const [
                 Text('Tu Especialista FixUp',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white)),
+                        fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black87)),
                 Text('Verificado • 4.8 ★',
                     style: TextStyle(
                         color: _fawn, fontSize: 13, fontWeight: FontWeight.w600)),
@@ -343,13 +343,16 @@ class _BenefitItem extends StatelessWidget {
         Container(
           width: 64,
           height: 64,
-          decoration: BoxDecoration(color: _card, borderRadius: BorderRadius.circular(14)),
+          decoration: BoxDecoration(
+            color: _fawn.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(14),
+          ),
           child: Icon(icon, color: _fawn, size: 30),
         ),
         const SizedBox(height: 6),
         Text(label,
             style: const TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black87)),
       ],
     );
   }
@@ -380,6 +383,7 @@ class _ReviewInputCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: _card,
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: _border),
       ),
       child: Column(
         children: [
@@ -397,11 +401,11 @@ class _ReviewInputCard extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.white)),
+                            color: Colors.black87)),
                   ),
                   Icon(
                     isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                    color: Colors.white,
+                    color: Colors.black54,
                   ),
                 ],
               ),
@@ -430,7 +434,7 @@ class _ReviewInputCard extends StatelessWidget {
                   TextField(
                     controller: controller,
                     maxLines: 3,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.black87),
                     decoration: InputDecoration(
                       hintText: 'Cuéntanos más detalles del servicio...',
                       hintStyle: const TextStyle(color: _grey),
@@ -491,7 +495,7 @@ class _ReviewsSection extends StatelessWidget {
           children: [
             const Text('Opiniones de la comunidad',
                 style: TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                    fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
             const SizedBox(width: 8),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -542,6 +546,7 @@ class _ReviewCardState extends State<_ReviewCard> {
       decoration: BoxDecoration(
         color: _card,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -567,7 +572,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                             fontSize: 14, fontWeight: FontWeight.bold, color: _fawn)),
                     if (widget.review.serviceTitle.isNotEmpty)
                       Text('comentó sobre: ${widget.review.serviceTitle}',
-                          style: const TextStyle(fontSize: 12, color: _fawn)),
+                          style: const TextStyle(fontSize: 12, color: _grey)),
                     Row(
                       children: List.generate(5, (i) => Icon(
                             i < widget.review.rating ? Icons.star : Icons.star_border,
@@ -602,7 +607,7 @@ class _ReviewCardState extends State<_ReviewCard> {
           ),
           const SizedBox(height: 10),
           Text(widget.review.comment,
-              style: const TextStyle(fontSize: 14, color: Colors.white, height: 1.4)),
+              style: const TextStyle(fontSize: 14, color: Colors.black87, height: 1.4)),
         ],
       ),
     );

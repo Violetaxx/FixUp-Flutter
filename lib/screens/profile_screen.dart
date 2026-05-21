@@ -36,11 +36,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _isImageUploading = false;
   String _profileImageUrl = '';
   String _name = 'Juan Pérez';
-  String _role = 'Cliente estrella';
+  final String _role = 'Cliente estrella';
 
   final ImagePicker _picker = ImagePicker();
 

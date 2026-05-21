@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-const _bg = Color(0xFF111111);
-const _card = Color(0xFF252525);
+const _bg = Color(0xFFF8F8FC);
+const _card = Color(0xFFFFFFFF);
 const _fawn = Color(0xFFCB9E50);
 const _grey = Color(0xFF8E8E93);
-const _border = Color(0xFF333333);
+const _border = Color(0xFFE6E2D8);
+const _bubbleIn = Color(0xFFF0ECE4);
 
 class ChatMessage {
   final String id;
@@ -66,10 +67,9 @@ class _ChatScreenState extends State<ChatScreen> {
       _messageController.clear();
     });
 
-    // Simulated provider response after delay
     Future.delayed(const Duration(seconds: 1), () {
       if (!mounted) return;
-      
+
       final responses = [
         'Excelente, te confirmo que podemos hacerlo ese día.',
         'Sí, claro, sin problema.',
@@ -106,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: _bg,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.maybePop(context),
         ),
         title: Column(
@@ -115,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Text(
               widget.providerName,
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black87,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -182,7 +182,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Colors.black87,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -220,7 +220,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       vertical: 10,
                     ),
                     decoration: BoxDecoration(
-                      color: msg.isFromUser ? _fawn : _card,
+                      color: msg.isFromUser ? _fawn : _bubbleIn,
                       borderRadius: BorderRadius.circular(16),
                       border: msg.isFromUser
                           ? null
@@ -229,7 +229,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: Text(
                       msg.text,
                       style: TextStyle(
-                        color: msg.isFromUser ? Colors.white : Colors.white,
+                        color: msg.isFromUser ? Colors.white : Colors.black87,
                         fontSize: 14,
                       ),
                     ),
@@ -253,7 +253,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: TextField(
                       controller: _messageController,
                       maxLines: null,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
                         hintText: 'Escribe tu mensaje...',
                         hintStyle: const TextStyle(color: _grey),
@@ -280,7 +280,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   const SizedBox(width: 8),
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: _fawn,
                       shape: BoxShape.circle,
                     ),

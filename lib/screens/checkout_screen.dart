@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../data/mock_data.dart';
 import 'chat_screen.dart';
 
-const _bg = Color(0xFF111111);
-const _card = Color(0xFF252525);
+const _bg = Color(0xFFF8F8FC);
+const _card = Color(0xFFFFFFFF);
 const _fawn = Color(0xFFCB9E50);
 const _grey = Color(0xFF8E8E93);
-const _border = Color(0xFF333333);
+const _border = Color(0xFFE6E2D8);
 
 class CheckoutScreen extends StatefulWidget {
   final MockService service;
@@ -25,7 +25,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
     Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
-      
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => ChatScreen(
@@ -43,7 +43,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     final s = widget.service;
-    // Parse price - remove currency symbol and dots/commas
     final priceStr = s.price.replaceAll(RegExp(r'[^\d,.]'), '').replaceAll('.', '');
     final price = double.tryParse(priceStr.replaceAll(',', '.')) ?? 0.0;
     final subtotal = price;
@@ -60,13 +59,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           leading: _isProcessing
               ? null
               : IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back, color: Colors.black87),
                   onPressed: () => Navigator.maybePop(context),
                 ),
           title: const Text(
             'Resumen del Pedido',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black87,
               fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
@@ -108,7 +107,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Colors.black87,
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -145,7 +144,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Colors.black87,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -208,7 +207,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             width: 48,
                             height: 48,
                             decoration: BoxDecoration(
-                              color: _fawn.withValues(alpha: 0.2),
+                              color: _fawn.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(Icons.credit_card, color: _fawn),
@@ -223,7 +222,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: Colors.black87,
                                   ),
                                 ),
                                 Text(
@@ -322,7 +321,7 @@ class _SummaryRow extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-            color: isBold ? Colors.white : _grey,
+            color: isBold ? Colors.black87 : _grey,
           ),
         ),
         Text(
@@ -330,7 +329,7 @@ class _SummaryRow extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-            color: isBold ? _fawn : Colors.white,
+            color: isBold ? _fawn : Colors.black87,
           ),
         ),
       ],
